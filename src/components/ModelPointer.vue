@@ -9,7 +9,7 @@ import {
   Vector3,
   WebGLRenderer
 } from 'three'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onBeforeUnmount } from 'vue'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const canvas = ref<HTMLCanvasElement | null>(null)
@@ -19,7 +19,7 @@ camera.position.set(0, 0, 4)
 
 const mouse = new Vector2()
 const raycaster = new Raycaster()
-const plane = new Plane(new Vector3(0, 0, 5), -2)
+const plane = new Plane(new Vector3(1, 0, 3), -2)
 const pointOfIntersection = new Vector3()
 
 onMounted(() => {
@@ -47,19 +47,9 @@ onMounted(() => {
 
       document.body.addEventListener('mousemove', onMouseMove, false)
 
-      function animate() {
-        requestAnimationFrame(animate)
-
-        raycaster.setFromCamera(mouse, camera)
-        const intersects = raycaster.intersectObjects(scene.children)
-
-        if (intersects.length > 0) {
-          model.lookAt(intersects[0].point)
-        }
-
+      renderer.setAnimationLoop(() => {
         renderer.render(scene, camera)
-      }
-      animate()
+      })
     },
     undefined,
     (error) => {
@@ -67,10 +57,14 @@ onMounted(() => {
     }
   )
 })
+
+onBeforeUnmount(() => {
+  document.body.removeEventListener('mousemove', onMouseMove)
+})
 </script>
 
 <template>
-  <canvas ref="canvas" width="1000" height="1000"></canvas>
+  <canvas ref="canvas" width="700" height="700"></canvas>
 </template>
 
 <style scoped></style>
