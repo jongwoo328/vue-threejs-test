@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ModelMouse from '@/components/ModelMouse.vue'
+import ModelMouseDrag from '@/components/ModelMouseDrag.vue'
 </script>
 
 <template>
-  <ModelMouse />
+  <ModelMouseDrag />
 </template>
 
 <style lang="scss"></style>

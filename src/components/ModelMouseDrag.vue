@@ -24,6 +24,7 @@ onMounted(() => {
     '/models/shiba/scene.gltf',
     (gltf) => {
       const model = gltf.scene
+      model.position.set(0, 0, 0.4)
       scene.add(model)
 
       function animate() {

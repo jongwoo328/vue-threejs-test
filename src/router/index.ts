@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ModelDefault from '../views/ModelDefault.vue'
-import ModelMouse from '@/views/ModelMouse.vue'
+import ModelMouseDrag from '@/views/ModelMouseDrag.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/mouse',
       name: 'mouse',
-      component: ModelMouse
+      component: ModelMouseDrag
     }
   ]
 })
