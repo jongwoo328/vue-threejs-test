@@ -21,6 +21,8 @@ const mouse = new Vector2()
 const raycaster = new Raycaster()
 const plane = new Plane(new Vector3(1, 0, 3), -2)
 const pointOfIntersection = new Vector3()
+const abortController = new AbortController()
+const signal = abortController.signal
 
 onMounted(() => {
   const renderer = new WebGLRenderer({
@@ -45,7 +47,7 @@ onMounted(() => {
         model.lookAt(pointOfIntersection)
       }
 
-      document.body.addEventListener('mousemove', onMouseMove, false)
+      document.body.addEventListener('mousemove', onMouseMove, { signal })
 
       renderer.setAnimationLoop(() => {
         renderer.render(scene, camera)
@@ -59,7 +61,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  document.body.removeEventListener('mousemove', onMouseMove)
+  abortController.abort()
 })
 </script>
 
